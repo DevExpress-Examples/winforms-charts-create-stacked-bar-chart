@@ -1,52 +1,79 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.XtraCharts;
-// ...
 
 namespace Series_StackedBarChart {
     public partial class Form1 : Form {
         public Form1() {
             InitializeComponent();
         }
-
         private void Form1_Load(object sender, EventArgs e) {
-            // Create a new chart.
-            ChartControl stackedBarChart = new ChartControl();
 
-            // Create two stacked bar series.
-            Series series1 = new Series("Series 1", ViewType.StackedBar);
-            Series series2 = new Series("Series 2", ViewType.StackedBar);
+            // Create a chart and add it to the form:
+            ChartControl chart = new ChartControl();
+            chart.Dock = DockStyle.Fill;
+            this.Controls.Add(chart);
+
+            // Bind the chart to a data source:
+            chart.DataSource = DataPoint.GetDataPoints();
+            chart.SeriesTemplate.ChangeView(ViewType.StackedBar);
+            chart.SeriesTemplate.SeriesDataMember = "Company";
+            chart.SeriesTemplate.SetDataMembers("Product", "Income");
+
+            // Enable series point labels, specify their text pattern and position:
+            chart.SeriesTemplate.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
+            chart.SeriesTemplate.Label.TextPattern = "${V}M";
+            ((BarSeriesLabel)chart.SeriesTemplate.Label).Position = BarSeriesLabelPosition.Center;
+
+            // Customize series view settings (for example, bar width):
+            StackedBarSeriesView view = (StackedBarSeriesView)chart.SeriesTemplate.View;
+            view.BarWidth = 0.8;
+
+            // Disable minor tickmarks on the x-axis:
+            XYDiagram diagram = (XYDiagram)chart.Diagram;
+            diagram.AxisX.Tickmarks.MinorVisible = false;
+
+            // Add a chart title:
+            chart.Titles.Add(new ChartTitle { Text = "Sales by Products" });
+
+            // Specify legend settings:
+            chart.Legend.MarkerMode = LegendMarkerMode.CheckBoxAndMarker;
+            chart.Legend.AlignmentHorizontal = LegendAlignmentHorizontal.Center;
+            chart.Legend.AlignmentVertical = LegendAlignmentVertical.TopOutside;
             
-            // Add points to them
-            series1.Points.Add(new SeriesPoint("A", 10));
-            series1.Points.Add(new SeriesPoint("B", 12));
-            series1.Points.Add(new SeriesPoint("C", 14));
-            series1.Points.Add(new SeriesPoint("D", 17));
-            
-            series2.Points.Add(new SeriesPoint("A", 15));
-            series2.Points.Add(new SeriesPoint("B", 18));
-            series2.Points.Add(new SeriesPoint("C", 25));
-            series2.Points.Add(new SeriesPoint("D", 33));
+        }
 
-            // Add both series to the chart.
-            stackedBarChart.Series.AddRange(new Series[] { series1, series2 });
+        public class DataPoint {
+            public string Product { get; set; }
+            public double Income { get; set; }
+            public string Company { get; set; }
+            public DataPoint(string product, double income, string company) {
+                this.Product = product;
+                this.Income = income;
+                this.Company = company;
+            }
+            public static List<DataPoint> GetDataPoints() {
+                List<DataPoint> data = new List<DataPoint> {
+                new DataPoint("Camera",      34.96,  "DevAV North"),
+                new DataPoint("Camcorder",   56.26,  "DevAV North"),
+                new DataPoint("Flash",       45.982, "DevAV North"),
+                new DataPoint("Smartphone",  67.14,  "DevAV North"),
+                new DataPoint("Smart Watch", 51.23,  "DevAV North"),
+                new DataPoint("Television",  57.443, "DevAV North"),
+                new DataPoint("Home Audio",  45.83,  "DevAV North"),
+                new DataPoint("Headphone",   51.23,  "DevAV North"),
 
-            // Access the view-type-specific options of the series.
-            ((StackedBarSeriesView)series1.View).BarWidth = 0.8;
-
-            // Access the type-specific options of the diagram.
-            ((XYDiagram)stackedBarChart.Diagram).Rotated = true;
-
-            // Hide the legend (if necessary).
-            stackedBarChart.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
-
-            // Add a title to the chart (if necessary).
-            stackedBarChart.Titles.Add(new ChartTitle());
-            stackedBarChart.Titles[0].Text = "A Stacked Bar Chart";
-
-            // Add the chart to the form.
-            stackedBarChart.Dock = DockStyle.Fill;
-            this.Controls.Add(stackedBarChart);
+                new DataPoint("Camera",      56.48,  "DevAV South"),
+                new DataPoint("Camcorder",   35.123, "DevAV South"),
+                new DataPoint("Flash",       36.16,  "DevAV South"),
+                new DataPoint("Smartphone",  39.1,   "DevAV South"),
+                new DataPoint("Smart Watch", 34.6,   "DevAV South"),
+                new DataPoint("Television",  56.16,  "DevAV South"),
+                new DataPoint("Home Audio",  35.38,  "DevAV South"),
+                new DataPoint("Headphone",   58.1 ,  "DevAV South")};
+                return data;
+            }
         }
     }
 }
