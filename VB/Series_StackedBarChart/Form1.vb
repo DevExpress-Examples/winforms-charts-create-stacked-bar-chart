@@ -23,7 +23,7 @@ Namespace Series_StackedBarChart
             chart.SeriesTemplate.SeriesDataMember = "Company"
             chart.SeriesTemplate.SetDataMembers("Product", "Income")
             ' Enable series point labels, specify their text pattern and position:
-            chart.SeriesTemplate.LabelsVisibility = DevExpress.Utils.DefaultBoolean.[True]
+            chart.SeriesTemplate.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True
             chart.SeriesTemplate.Label.TextPattern = "${V}M"
             CType(chart.SeriesTemplate.Label, BarSeriesLabel).Position = BarSeriesLabelPosition.Center
             ' Customize series view settings (for example, bar width):
