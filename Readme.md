@@ -29,7 +29,7 @@ The following example demonstrates how to create a [Stacked Bar](https://docs.de
 - [How to create a Side-by-Side Full-Stacked Bar chart](https://github.com/DevExpress-Examples/how-to-create-a-side-by-side-full-stacked-bar-chart-e2093)
 - [How to create a Side-by-Side Stacked Bar chart](https://github.com/DevExpress-Examples/how-to-create-a-side-by-side-stacked-bar-chart-e2092)
 <!-- feedback -->
-## Does this example address your development requirements/objectives?
+## Does This Example Address Your Development Requirements/Objectives?
 
 [<img src="https://www.devexpress.com/support/examples/i/yes-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=winforms-charts-create-stacked-bar-chart&~~~was_helpful=yes) [<img src="https://www.devexpress.com/support/examples/i/no-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=winforms-charts-create-stacked-bar-chart&~~~was_helpful=no)
 
